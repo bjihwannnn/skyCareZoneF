@@ -1,0 +1,77 @@
+---
+import Brand from "./Brand.astro";
+import Icon from "./Icon.astro";
+import { services, site } from "../config/site";
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <Brand />
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="main-navigation"
+      aria-label="메뉴 열기"
+    >
+      <span></span>
+      <span></span>
+    </button>
+    <nav id="main-navigation" class="main-navigation" aria-label="주 메뉴">
+      <a
+        href={site.home}
+        class="nav-link"
+        aria-current={currentPath === "/" ? "page" : undefined}
+      >
+        홈
+      </a>
+      {services.map((service) => (
+        <a
+          class="nav-link"
+          href={service.path}
+          aria-current={currentPath === service.path ? "page" : undefined}
+        >
+          {service.navLabel}
+        </a>
+      ))}
+      <a class="button button--small nav-contact" href={site.contact}>
+        문의 <Icon name="diagonal" />
+      </a>
+    </nav>
+  </div>
+</header>
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+  const navigation = document.querySelector<HTMLElement>("#main-navigation");
+  const setOpen = (open: boolean) => {
+    toggle?.setAttribute("aria-expanded", String(open));
+    toggle?.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
+  };
+  toggle?.addEventListener("click", () =>
+    setOpen(toggle.getAttribute("aria-expanded") !== "true"),
+  );
+  navigation
+    ?.querySelectorAll("a")
+    .forEach((link) => link.addEventListener("click", () => setOpen(false)));
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Escape" &&
+      toggle?.getAttribute("aria-expanded") === "true"
+    ) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  document.addEventListener("click", (event) => {
+    if (
+      event.target instanceof Node &&
+      !navigation?.contains(event.target) &&
+      !toggle?.contains(event.target)
+    )
+      setOpen(false);
+  });
+  matchMedia("(min-width: 768px)").addEventListener("change", () =>
+    setOpen(false),
+  );
+</script>

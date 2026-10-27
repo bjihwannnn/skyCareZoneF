@@ -1,0 +1,138 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import Contact from "../components/Contact.astro";
+import Icon from "../components/Icon.astro";
+import { services } from "../config/site";
+---
+
+<SiteLayout>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow hero-eyebrow">
+          <span class="label-line"></span>CLEAN SPACE, BETTER DAYS
+        </p>
+        <h1 id="hero-title" class="type-hero">
+          깨끗한 공간,
+          <br />
+          기분 좋은 <span class="hero-highlight">일상.</span>
+        </h1>
+        <p class="hero-description">
+          머무는 공간이 달라지면,
+          <br />
+          우리의 일상도 한결 가벼워지니까.
+        </p>
+        <p class="hero-brand-note type-small">
+          에어컨 청소부터 공간·가구 클리닝, 방역까지.
+          <br />
+          SKY CARE ZONE의 공간 케어를 만나보세요.
+        </p>
+        <a class="hero-explore type-menu" href="#services">
+          우리 공간에 맞는 케어 찾기{" "}
+          <span class="circle-arrow">
+            <Icon name="down" />
+          </span>
+        </a>
+      </div>
+      <figure class="hero-visual">
+        <img
+          src="/images/living-room.jpg"
+          width="1600"
+          height="1067"
+          alt="햇살이 드는 거실의 공간 연출 이미지. 실제 작업 사진이 아닌 플레이스홀더입니다."
+          fetchpriority="high"
+        />
+        <figcaption class="image-label type-small">
+          공간 연출 이미지 · 플레이스홀더
+        </figcaption>
+        <div class="hero-image-note" aria-hidden="true">
+          <Icon name="sparkle" />
+          <span>
+            공간을 돌보다.
+            <br />
+            일상을 바꾸다.
+          </span>
+          <span class="image-note-line"></span>
+        </div>
+      </figure>
+    </div>
+  </section>
+  <section class="hero-cta" aria-label="케어 문의 안내">
+    <div class="container hero-cta-inner">
+      <div class="cta-intro">
+        <span class="cta-icon">
+          <Icon name="sparkle" />
+        </span>
+        <div>
+          <p>우리 공간에 필요한 케어,</p>
+          <p class="type-small">SKY CARE ZONE과 함께 알아보세요.</p>
+        </div>
+      </div>
+      <a class="button" href="#contact">
+        문의하기 <Icon name="diagonal" />
+      </a>
+    </div>
+  </section>
+  <section
+    id="services"
+    class="services-section section-space"
+    aria-labelledby="services-title"
+  >
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">OUR CARE SERVICES</p>
+          <h2 id="services-title" class="type-section">
+            공간에 맞는 케어,
+            <br />
+            일상에 더 가까이.
+          </h2>
+        </div>
+        <p class="section-description">
+          가정부터 기업·사무실까지.
+          <br />
+          머무는 공간을 위한 세 가지 케어.
+        </p>
+      </div>
+      <div class="service-grid">
+        {services.map((service) => (
+          <a class="service-card" href={service.path}>
+            <figure
+              class:list={["service-image", `service-image--${service.id}`]}
+            >
+              <img
+                src={service.image}
+                width="800"
+                height="640"
+                alt={service.imageAlt}
+                loading="lazy"
+              />
+              <figcaption class="placeholder-tag">플레이스홀더</figcaption>
+              <span class="service-number eyebrow">{service.number}</span>
+            </figure>
+            <div class="service-card-body">
+              <p class="eyebrow">{service.english}</p>
+              <div class="service-card-title">
+                <h3 class="type-card">{service.title}</h3>
+                <span class="service-arrow">
+                  <Icon name="diagonal" />
+                </span>
+              </div>
+              <p class="type-small service-description">
+                {service.description}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="service-footnote type-small">
+        <Icon name="image" />
+        <p>
+          위 이미지는 디자인 시안을 위한 플레이스홀더이며, 실제 작업 사례가
+          아닙니다.
+        </p>
+      </div>
+    </div>
+  </section>
+  <Contact />
+</SiteLayout>

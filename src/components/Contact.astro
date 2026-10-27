@@ -1,0 +1,84 @@
+---
+import Icon from "./Icon.astro";
+import { services } from "../config/site";
+interface Props {
+  selectedService?: string;
+}
+const { selectedService } = Astro.props;
+---
+
+<section
+  id="contact"
+  class="contact-section section-space"
+  aria-labelledby="contact-title"
+>
+  <div class="container contact-grid">
+    <div class="contact-copy">
+      <span class="contact-symbol">
+        <Icon name="message" />
+      </span>
+      <p class="eyebrow">LET’S TALK ABOUT YOUR SPACE</p>
+      <h2 id="contact-title" class="type-section">
+        더 쾌적한 일상을,
+        <br />
+        함께 시작해요.
+      </h2>
+      <p class="contact-description">
+        가정부터 기업·사무실까지.
+        <br />
+        우리 공간에 필요한 케어를 살펴보세요.
+      </p>
+      <div class="contact-signature">
+        <span class="small-line"></span>
+        <span class="eyebrow">SKY CARE ZONE</span>
+      </div>
+    </div>
+    <div class="contact-panel">
+      <p class="eyebrow">CONTACT</p>
+      <h3 class="type-card">어떤 케어가 필요하신가요?</h3>
+      <p class="type-small contact-helper">관심 있는 서비스를 선택해 보세요.</p>
+      <div class="care-options" role="group" aria-label="관심 서비스 선택">
+        {services.map((service) => (
+          <button
+            type="button"
+            class="care-option"
+            data-service={service.title}
+            aria-pressed={selectedService === service.title ? "true" : "false"}
+          >
+            <Icon name={service.icon} />
+            <span>{service.navLabel}</span>
+          </button>
+        ))}
+      </div>
+      <p class="selection-feedback type-small" aria-live="polite">
+        {selectedService
+          ? `${selectedService}에 관심 있으시군요.`
+          : "궁금한 케어를 선택해 주세요."}
+      </p>
+      <div class="contact-pending">
+        <span class="status-dot"></span>
+        <span class="type-small">문의 채널 준비 중</span>
+      </div>
+      <p class="type-small pending-description">
+        연락처와 문의 방법을 준비하고 있습니다.
+        <br />
+        현재는 문의가 접수되지 않습니다.
+      </p>
+    </div>
+  </div>
+</section>
+<script>
+  document.querySelectorAll<HTMLElement>(".contact-panel").forEach((panel) => {
+    const options = panel.querySelectorAll<HTMLButtonElement>(".care-option");
+    const feedback = panel.querySelector<HTMLElement>(".selection-feedback");
+    options.forEach((option) =>
+      option.addEventListener("click", () => {
+        options.forEach((button) =>
+          button.setAttribute("aria-pressed", String(button === option)),
+        );
+        if (feedback)
+          feedback.textContent = `${option.dataset.service}에 관심 있으시군요.`;
+      }),
+    );
+  });
+</script>
