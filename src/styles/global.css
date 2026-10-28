@@ -845,6 +845,10 @@ main:focus {
 .detail-cases {
   background: var(--color-surface-sage);
 }
+/* Limit only real galleries; photo height still follows its original ratio. */
+.detail-cases > .case-gallery-container {
+  max-width: clamp(680px, 90svh, 840px);
+}
 .case-gallery {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -951,7 +955,7 @@ main:focus {
 /* Preserve the portrait lead and landscape details at their native ratios. */
 @media (min-width: 768px), (min-width: 600px) and (orientation: landscape) {
   .case-gallery {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
     column-gap: 24px;
   }
   .case-photo--featured {

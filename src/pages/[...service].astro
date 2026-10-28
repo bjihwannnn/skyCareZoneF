@@ -105,7 +105,12 @@ const { processSteps, usageGuideItems, isPlaceholder, casePhotos } = details;
     class="detail-section detail-cases section-space"
     aria-labelledby="cases-title"
   >
-    <div class="container">
+    <div
+      class:list={[
+        "container",
+        { "case-gallery-container": casePhotos.length > 0 },
+      ]}
+    >
       <div class="section-heading">
         <div>
           <p class="eyebrow">02 / CARE GALLERY</p>
