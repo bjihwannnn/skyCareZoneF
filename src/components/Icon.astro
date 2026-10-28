@@ -61,4 +61,16 @@ const { name, class: className } = Astro.props;
       <path d="M12 11v5m0-9v.1" />
     </>
   )}
+  {name === "document" && (
+    <>
+      <path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6Z" />
+      <path d="M14 3v6h6M8 13h8m-8 4h6" />
+    </>
+  )}
+  {name === "help" && (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 2-2.5 2-2.5 4m0 3v.1" />
+    </>
+  )}
 </svg>

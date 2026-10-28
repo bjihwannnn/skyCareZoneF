@@ -4,20 +4,23 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 import Contact from "../components/Contact.astro";
 import Icon from "../components/Icon.astro";
 import { services, type Service } from "../config/site";
+import { serviceDetails, type ServiceDetails } from "../data/service-details";
 export const getStaticPaths = (() =>
   services.map((service) => ({
     params: { service: service.path.slice(1) },
-    props: { service },
+    props: { service, details: serviceDetails[service.id] },
   }))) satisfies GetStaticPaths;
 interface Props {
   service: Service;
+  details: ServiceDetails;
 }
-const { service } = Astro.props;
+const { service, details } = Astro.props;
+const { processSteps, usageGuideItems, isPlaceholder, casePhotos } = details;
 ---
 
 <SiteLayout
   title={`${service.title} | SKY CARE ZONE`}
-  description={`가정과 기업·사무실을 위한 SKY CARE ZONE의 ${service.title}. 상세 안내를 준비하고 있습니다.`}
+  description={details.metaDescription}
 >
   <div class="detail-intro">
     <div class="container">
@@ -41,7 +44,7 @@ const { service } = Astro.props;
       <nav class="detail-navigation" aria-label="서비스 상세 목차">
         <a href="#process">작업 절차</a>
         <a href="#cases">작업 사례</a>
-        <a href="#notes">유의사항</a>
+        <a href="#notes">이용 안내</a>
         <a href="#contact">
           케어 문의 <Icon name="diagonal" />
         </a>
@@ -53,24 +56,48 @@ const { service } = Astro.props;
     class="detail-section section-space"
     aria-labelledby="process-title"
   >
-    <div class="container detail-section-grid">
-      <div>
-        <p class="eyebrow">01 / CARE PROCESS</p>
-        <h2 id="process-title" class="type-section">
-          작업 절차
-        </h2>
+    <div class="container">
+      <div class="section-heading process-heading">
+        <div>
+          <p class="eyebrow">01 / CARE PROCESS</p>
+          <h2 id="process-title" class="type-section">
+            작업 절차
+          </h2>
+        </div>
+        {isPlaceholder && (
+          <p
+            class="type-small detail-layout-note"
+            id="process-placeholder-note"
+          >
+            레이아웃 확인을 위한 임시 콘텐츠입니다.
+          </p>
+        )}
       </div>
-      <div class="content-pending">
-        <span class="pending-icon">
-          <Icon name={service.icon} />
-        </span>
-        <h3 class="type-card">케어 과정을 준비하고 있습니다.</h3>
-        <p>
-          확인된 작업 절차가 등록되면
-          <br class="desktop-break" /> 이곳에서 자세히 안내해 드릴 예정입니다.
-        </p>
-        <span class="pending-badge type-small">상세 정보 준비 중</span>
-      </div>
+      <ol
+        class="process-steps"
+        role="list"
+        aria-label="4단계 작업 절차"
+        aria-describedby={
+          isPlaceholder ? "process-placeholder-note" : undefined
+        }
+      >
+        {processSteps.map((step, index) => (
+          <li class="process-step">
+            <span class="process-number type-card" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div class="process-step-copy">
+              <h3 class="type-card">{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+            {index < processSteps.length - 1 && (
+              <span class="process-connector" aria-hidden="true">
+                <Icon name="arrow" />
+              </span>
+            )}
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
   <section
@@ -86,29 +113,69 @@ const { service } = Astro.props;
             작업 사례
           </h2>
         </div>
-        <p class="section-description">실제 작업 사진은 준비 중입니다.</p>
+        <p class="section-description">
+          {casePhotos.length > 0
+            ? "사진으로 살펴보는 작업 현장."
+            : "실제 작업 사진은 준비 중입니다."}
+        </p>
       </div>
-      <div class="case-grid">
-        <figure class="case-illustration">
-          <img
-            src={service.image}
-            width="800"
-            height="640"
-            alt={service.imageAlt}
-            loading="lazy"
-          />
-          <figcaption class="type-small">
-            공간 연출 이미지 · 플레이스홀더 · 실제 작업 사례 아님
-          </figcaption>
-        </figure>
-        <div class="case-placeholder">
-          <Icon name="image" />
-          <h3 class="type-card">작업 사진을 기다리고 있어요.</h3>
-          <p class="type-small">
-            확인된 {service.title} 사례가 등록될 공간입니다.
+      {casePhotos.length > 0 ? (
+        <div>
+          <div class="case-gallery">
+            {casePhotos.map((photo, index) => (
+              <figure
+                class:list={[
+                  "case-photo",
+                  { "case-photo--featured": index === 0 },
+                ]}
+              >
+                <a
+                  class="case-photo-link"
+                  href={photo.src}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={`${photo.caption} — 원본 사진 보기 (새 창)`}
+                >
+                  <img
+                    src={photo.src}
+                    width={photo.width}
+                    height={photo.height}
+                    alt={photo.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </a>
+                <figcaption class="type-small">{photo.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <p class="case-gallery-hint type-small">
+            사진을 선택하면 원본을 새 창에서 볼 수 있습니다.
           </p>
         </div>
-      </div>
+      ) : (
+        <div class="case-grid">
+          <figure class="case-illustration">
+            <img
+              src={service.image}
+              width="800"
+              height="640"
+              alt={service.imageAlt}
+              loading="lazy"
+            />
+            <figcaption class="type-small">
+              공간 연출 이미지 · 플레이스홀더 · 실제 작업 사례 아님
+            </figcaption>
+          </figure>
+          <div class="case-placeholder">
+            <Icon name="image" />
+            <h3 class="type-card">작업 사진을 기다리고 있어요.</h3>
+            <p class="type-small">
+              확인된 {service.title} 사례가 등록될 공간입니다.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   </section>
   <section
@@ -116,26 +183,34 @@ const { service } = Astro.props;
     class="detail-section section-space"
     aria-labelledby="notes-title"
   >
-    <div class="container detail-section-grid">
+    <div class="container detail-section-grid usage-guide-layout">
       <div>
-        <p class="eyebrow">03 / PLEASE NOTE</p>
+        <p class="eyebrow">03 / SERVICE GUIDE</p>
         <h2 id="notes-title" class="type-section">
-          유의사항
+          이용 안내
         </h2>
-      </div>
-      <div class="notice-panel">
-        <Icon name="info" />
-        <div>
-          <h3 class="type-card">이용 전 안내를 준비하고 있습니다.</h3>
-          <p>
-            서비스 범위와 작업 관련 유의사항은
-            <br class="desktop-break" /> 확정된 내용이 등록되면 안내해 드립니다.
+        {isPlaceholder && (
+          <p class="type-small detail-layout-note" id="guide-placeholder-note">
+            레이아웃 확인을 위한
+            <br />
+            임시 안내 문구입니다.
           </p>
-          <p class="type-small notice-caption">
-            현재 상세 서비스 정보는 미확정 상태입니다.
-          </p>
-        </div>
+        )}
       </div>
+      <ul
+        class="usage-guide-list"
+        role="list"
+        aria-describedby={isPlaceholder ? "guide-placeholder-note" : undefined}
+      >
+        {usageGuideItems.map((item) => (
+          <li class="usage-guide-item">
+            <span class="usage-guide-icon">
+              <Icon name={item.icon} />
+            </span>
+            <p class="usage-guide-copy">{item.description}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
   <Contact selectedService={service.title} />
