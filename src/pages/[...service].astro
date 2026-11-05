@@ -16,6 +16,7 @@ interface Props {
 }
 const { service, details } = Astro.props;
 const { processSteps, usageGuideItems, isPlaceholder, casePhotos } = details;
+const isThreeColumnGallery = service.id === "disinfection";
 ---
 
 <SiteLayout
@@ -108,7 +109,11 @@ const { processSteps, usageGuideItems, isPlaceholder, casePhotos } = details;
     <div
       class:list={[
         "container",
-        { "case-gallery-container": casePhotos.length > 0 },
+        {
+          "case-gallery-container": casePhotos.length > 0,
+          "case-gallery-container--three-column":
+            casePhotos.length > 0 && isThreeColumnGallery,
+        },
       ]}
     >
       <div class="section-heading">
@@ -131,7 +136,10 @@ const { processSteps, usageGuideItems, isPlaceholder, casePhotos } = details;
               <figure
                 class:list={[
                   "case-photo",
-                  { "case-photo--featured": index === 0 },
+                  {
+                    "case-photo--featured":
+                      index === 0 && !isThreeColumnGallery,
+                  },
                 ]}
               >
                 <a

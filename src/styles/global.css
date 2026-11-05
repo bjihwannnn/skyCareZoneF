@@ -849,11 +849,17 @@ main:focus {
 .detail-cases > .case-gallery-container {
   max-width: clamp(680px, 90svh, 840px);
 }
+.detail-cases > .case-gallery-container--three-column {
+  max-width: 440px;
+}
 .case-gallery {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 28px;
   align-items: start;
+}
+.case-gallery-container--three-column .case-gallery {
+  grid-template-columns: minmax(0, 1fr);
 }
 .case-photo {
   min-width: 0;
@@ -1070,6 +1076,12 @@ main:focus {
   .case-placeholder {
     margin-bottom: 36px;
   }
+  .detail-cases > .case-gallery-container--three-column {
+    max-width: 1080px;
+  }
+  .case-gallery-container--three-column .case-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (min-width: 1024px) {
@@ -1203,9 +1215,18 @@ main:focus {
   .case-gallery {
     gap: 28px 32px;
   }
+  .case-gallery-container--three-column .case-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 1023px) and (min-width: 768px) {
+  /* Center an unpaired photo without enlarging it beyond the other photos. */
+  .case-gallery-container--three-column .case-photo:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    width: calc((100% - 24px) / 2);
+    justify-self: center;
+  }
   /* The reading order wraps from 02 to 03; omit a misleading sideways arrow. */
   .process-step:nth-child(2) .process-connector {
     display: none;

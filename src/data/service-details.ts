@@ -23,7 +23,7 @@ export interface ServiceDetails {
   isPlaceholder: boolean;
   processSteps: readonly ProcessStep[];
   usageGuideItems: readonly UsageGuideItem[];
-  // First photo is featured; an empty array keeps the existing placeholder.
+  // Photos render in array order; an empty array keeps the existing placeholder.
   casePhotos: readonly CasePhoto[];
 }
 
@@ -35,7 +35,7 @@ export const serviceDetails: Record<Service["id"], ServiceDetails> = {
     isPlaceholder: false,
     casePhotos: [
       {
-        src: "/images/cases/air-conditioner/ac-2.jpg",
+        src: "/images/cases/air-conditioner/ac-0.jpg",
         width: 1058,
         height: 1411,
         alt: "천장 에어컨에 파란 세척 커버가 연결되고 사다리와 비닐 보양이 설치된 실내",
@@ -49,7 +49,7 @@ export const serviceDetails: Record<Service["id"], ServiceDetails> = {
         caption: "커버를 분리한 에어컨 내부",
       },
       {
-        src: "/images/cases/air-conditioner/ac-3.jpg",
+        src: "/images/cases/air-conditioner/ac-2.jpg",
         width: 1411,
         height: 1058,
         alt: "바닥에 놓인 원형 커버와 필터 등 분리된 에어컨 부품",
@@ -100,7 +100,29 @@ export const serviceDetails: Record<Service["id"], ServiceDetails> = {
     metaDescription:
       "SKY CARE ZONE의 공간·가구 케어 작업 절차와 이용 안내를 확인하세요.",
     isPlaceholder: false,
-    casePhotos: [],
+    casePhotos: [
+      {
+        src: "/images/cases/space-furniture/sf-0.jpg",
+        width: 1058,
+        height: 1411,
+        alt: "세워 둔 가구의 갈색 하부 원단에 원형 노즐을 대고 작업하는 모습",
+        caption: "가구 하부 클리닝 작업",
+      },
+      {
+        src: "/images/cases/space-furniture/sf-1.jpg",
+        width: 1411,
+        height: 1058,
+        alt: "호스가 연결된 세척 장비로 실내 카펫 바닥을 관리하는 작업 현장",
+        caption: "카펫 클리닝 작업",
+      },
+      {
+        src: "/images/cases/space-furniture/sf-2.jpg",
+        width: 1058,
+        height: 1411,
+        alt: "무늬가 있는 밝은 패브릭 표면에 투명 노즐을 대고 작업하는 모습",
+        caption: "패브릭 표면 클리닝 작업",
+      },
+    ],
     processSteps: [
       {
         title: "오염 확인 및 분류",
@@ -145,7 +167,29 @@ export const serviceDetails: Record<Service["id"], ServiceDetails> = {
     metaDescription:
       "SKY CARE ZONE의 방역 케어 작업 절차와 이용 안내를 확인하세요.",
     isPlaceholder: false,
-    casePhotos: [],
+    casePhotos: [
+      {
+        src: "/images/cases/disinfection/d-0.jpg",
+        width: 1058,
+        height: 1411,
+        alt: "보호복을 착용한 작업자가 조명을 비추며 싱크대 하부와 주변을 확인하는 모습",
+        caption: "주방 싱크대 주변 점검",
+      },
+      {
+        src: "/images/cases/disinfection/d-1.jpg",
+        width: 1058,
+        height: 1411,
+        alt: "벽돌 외벽과 화분 사이에 분무기를 든 작업자가 서 있는 모습",
+        caption: "외벽 주변 방역 현장",
+      },
+      {
+        src: "/images/cases/disinfection/d-2.jpg",
+        width: 1058,
+        height: 1411,
+        alt: "보호복과 마스크를 착용한 작업자가 초록색 분무 장비로 실내에 분사하는 모습",
+        caption: "실내 분무 작업",
+      },
+    ],
     processSteps: [
       {
         title: "현장 조사 및 계획 수립",
