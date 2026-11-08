@@ -15,7 +15,7 @@
   --color-text: #273740;
   --color-bg: #f9faf7;
   --color-surface-blue: #e3f1f7;
-  --color-surface-sage: #ebf2ec;
+  --color-surface-sage: #e9f4eb;
   --color-white: #ffffff;
   --color-muted: color-mix(in srgb, var(--color-text) 75%, var(--color-bg));
   --color-line: color-mix(in srgb, var(--color-text) 15%, transparent);
@@ -132,7 +132,7 @@ main:focus {
 .button,
 .main-navigation,
 .detail-navigation,
-.care-option,
+.contact-platform-link,
 .footer-top nav {
   font-size: 16px;
   font-weight: 600;
@@ -330,10 +330,6 @@ main:focus {
   margin-top: 24px;
   color: var(--color-muted);
 }
-.hero-brand-note {
-  color: var(--color-muted);
-  margin-top: 20px;
-}
 .hero-explore {
   display: inline-flex;
   align-items: center;
@@ -373,38 +369,6 @@ main:focus {
   object-fit: cover;
   object-position: 53% 50%;
   border-radius: inherit;
-}
-.image-label {
-  position: absolute;
-  top: 17px;
-  right: 17px;
-  padding: 4px 10px;
-  border-radius: 3px;
-  background: color-mix(in srgb, var(--color-bg) 92%, transparent);
-  color: var(--color-text);
-}
-.hero-image-note {
-  position: absolute;
-  right: -1px;
-  bottom: -1px;
-  padding: 22px 24px;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  background: var(--color-surface-sage);
-  border-radius: 10px 0 7px 0;
-  font-size: var(--font-small);
-  line-height: 1.6;
-}
-.hero-image-note > svg {
-  width: 28px;
-  height: 28px;
-  color: var(--color-primary);
-}
-.image-note-line {
-  height: 1px;
-  width: 36px;
-  background: var(--color-secondary);
 }
 .hero-cta {
   background: var(--color-surface-blue);
@@ -473,7 +437,7 @@ main:focus {
   object-fit: cover;
   transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
 }
-.service-image--space-furniture img {
+.service-image--furniture-fabric img {
   object-position: 50% 64%;
 }
 .service-image--disinfection img {
@@ -481,16 +445,6 @@ main:focus {
 }
 .service-card:hover img {
   transform: scale(1.035);
-}
-.placeholder-tag {
-  position: absolute;
-  left: 16px;
-  bottom: 16px;
-  border-radius: 3px;
-  padding: 3px 9px;
-  font-size: var(--font-small);
-  line-height: 1.65;
-  background: color-mix(in srgb, var(--color-bg) 93%, transparent);
 }
 .service-number {
   position: absolute;
@@ -556,7 +510,7 @@ main:focus {
   margin-top: 3px;
 }
 
-/* An honest visual contact area: service choice only, no form or transmission. */
+/* Shared contact channels: primary phone action and platform profile links. */
 .contact-section {
   background: var(--color-surface-sage);
 }
@@ -604,70 +558,100 @@ main:focus {
 .contact-panel > .eyebrow {
   margin-bottom: 12px;
 }
-.contact-helper {
-  color: var(--color-muted);
-  margin-top: 10px;
+.contact-phone {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-content: center;
+  gap: 12px;
+  min-height: 136px;
+  margin-top: 24px;
+  padding: 20px;
+  color: var(--color-white);
+  background: var(--color-primary);
+  border-radius: 8px;
+  transition:
+    background 0.2s,
+    transform 0.2s;
 }
-.care-options {
+.contact-phone:hover {
+  background: color-mix(in srgb, var(--color-primary) 88%, var(--color-text));
+  transform: translateY(-2px);
+}
+.contact-phone:active {
+  transform: translateY(0);
+}
+.contact-phone-heading {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.contact-phone-heading svg {
+  width: 24px;
+  height: 24px;
+}
+.contact-phone > svg {
+  width: 20px;
+  height: 20px;
+  align-self: center;
+}
+.contact-phone-number {
+  grid-column: 1 / -1;
+  font-size: clamp(24px, 3.2vw, 34px);
+  font-weight: 600;
+  line-height: 1.25;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.contact-platform-label {
+  margin-block: 24px 12px;
+  color: var(--color-muted);
+}
+.contact-platforms {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-  margin-top: 24px;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-.care-option {
+.contact-platforms > li {
+  min-width: 0;
+}
+.contact-platform-link {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 12px;
-  min-height: 92px;
+  min-height: 116px;
+  padding: 16px 4px;
   border: 1px solid var(--color-line);
-  border-radius: 5px;
+  border-radius: 8px;
   background: var(--color-white);
-  padding: 12px 4px;
   transition:
     border-color 0.2s,
     background 0.2s,
-    color 0.2s;
+    transform 0.2s;
 }
-.care-option svg {
-  width: 25px;
-  height: 25px;
-}
-.care-option:hover {
+.contact-platform-link:hover {
   border-color: var(--color-primary);
-  color: var(--color-primary);
-}
-.care-option[aria-pressed="true"] {
   background: var(--color-surface-blue);
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+  transform: translateY(-2px);
 }
-.selection-feedback {
-  margin-top: 12px;
-  min-height: 24px;
-  color: var(--color-muted);
+.contact-platform-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  border-radius: 6px;
 }
-.contact-pending {
-  display: flex;
-  justify-content: center;
+.contact-platform-name {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 26px;
-  padding: 15px 8px;
-  border-radius: 4px;
-  background: var(--color-surface-sage);
+  gap: 4px;
 }
-.status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-primary);
-}
-.pending-description {
-  color: var(--color-muted);
-  margin-top: 12px;
-  text-align: center;
+.contact-platform-name svg {
+  width: 14px;
+  height: 14px;
 }
 
 .site-footer {
@@ -775,12 +759,6 @@ main:focus {
 .detail-section-grid > div > .eyebrow {
   margin-bottom: 16px;
 }
-.detail-layout-note {
-  color: var(--color-muted);
-}
-.process-heading .detail-layout-note {
-  margin-top: 16px;
-}
 .process-steps {
   --process-gap: 24px;
   display: grid;
@@ -845,7 +823,7 @@ main:focus {
 .detail-cases {
   background: var(--color-surface-sage);
 }
-/* Limit only real galleries; photo height still follows its original ratio. */
+/* Keep galleries compact while preserving native photo ratios. */
 .detail-cases > .case-gallery-container {
   max-width: clamp(680px, 90svh, 840px);
 }
@@ -880,48 +858,6 @@ main:focus {
 .case-gallery-hint {
   margin-top: 24px;
   color: var(--color-muted);
-}
-.case-grid {
-  display: grid;
-  gap: 24px;
-}
-.case-illustration {
-  min-width: 0;
-}
-.case-illustration img {
-  width: 100%;
-  aspect-ratio: 1.55;
-  object-fit: cover;
-  border-radius: 8px;
-}
-.case-illustration figcaption {
-  padding-top: 12px;
-  color: var(--color-muted);
-}
-.case-placeholder {
-  min-height: 280px;
-  border: 1px dashed var(--color-secondary);
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 28px;
-  text-align: center;
-}
-.case-placeholder > svg {
-  width: 40px;
-  height: 40px;
-  color: var(--color-primary);
-  margin-bottom: 22px;
-  stroke-width: 1;
-}
-.case-placeholder p {
-  margin-top: 10px;
-  color: var(--color-muted);
-}
-.usage-guide-layout > div > .detail-layout-note {
-  margin-top: 20px;
 }
 .usage-guide-layout .type-section {
   word-break: keep-all;
@@ -998,9 +934,6 @@ main:focus {
     height: 480px;
     border-top-left-radius: 100px;
   }
-  .hero-image-note {
-    padding: 24px;
-  }
   .hero-eyebrow {
     margin-bottom: 24px;
   }
@@ -1023,6 +956,9 @@ main:focus {
   .contact-grid {
     grid-template-columns: 1fr 1.1fr;
     gap: 40px;
+  }
+  .contact-copy {
+    padding-inline-start: 24px;
   }
   .contact-panel {
     padding: 32px 28px;
@@ -1068,13 +1004,6 @@ main:focus {
   .usage-guide-icon {
     width: 48px;
     height: 48px;
-  }
-  .case-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: stretch;
-  }
-  .case-placeholder {
-    margin-bottom: 36px;
   }
   .detail-cases > .case-gallery-container--three-column {
     max-width: 1080px;
@@ -1132,15 +1061,8 @@ main:focus {
   .hero-eyebrow {
     margin-bottom: 30px;
   }
-  .hero-brand-note {
-    margin-top: 22px;
-  }
   .hero-explore {
     margin-top: 38px;
-  }
-  .hero-image-note {
-    padding: 26px 30px;
-    gap: 22px;
   }
   .hero-cta-inner {
     padding-block: 28px;
@@ -1172,14 +1094,21 @@ main:focus {
     grid-template-columns: 1fr 1fr;
     gap: 100px;
   }
+  .contact-copy {
+    padding-inline-start: clamp(64px, 7vw, 96px);
+  }
   .contact-panel {
     padding: 40px;
   }
-  .care-options {
-    gap: 10px;
+  .contact-phone {
+    min-height: 148px;
+    padding: 24px;
   }
-  .care-option {
-    min-height: 100px;
+  .contact-platforms {
+    gap: 12px;
+  }
+  .contact-platform-link {
+    min-height: 124px;
   }
   .site-footer {
     padding-top: 48px;
@@ -1209,9 +1138,6 @@ main:focus {
   .process-connector {
     top: 35px;
   }
-  .case-grid {
-    gap: 32px;
-  }
   .case-gallery {
     gap: 28px 32px;
   }
@@ -1234,18 +1160,8 @@ main:focus {
   .brand__tagline {
     display: none;
   }
-  .hero-image-note .image-note-line {
-    display: none;
-  }
-  .contact-panel > .type-card {
-    max-width: 260px;
-  }
   .section-description {
     max-width: 290px;
-  }
-  .placeholder-tag {
-    left: 12px;
-    bottom: 12px;
   }
   .footer-top nav {
     gap: 18px;
@@ -1396,18 +1312,6 @@ main:focus {
   .hero-visual {
     height: 370px;
     border-top-left-radius: 60px;
-  }
-  .hero-image-note {
-    padding: 18px;
-    gap: 12px;
-  }
-  .image-note-line {
-    display: none;
-  }
-  .image-label {
-    left: 14px;
-    right: auto;
-    font-size: 12px;
   }
   .hero-eyebrow {
     gap: 8px;

@@ -1,10 +1,6 @@
 ---
 import Icon from "./Icon.astro";
-import { services } from "../config/site";
-interface Props {
-  selectedService?: string;
-}
-const { selectedService } = Astro.props;
+import { contactChannels } from "../config/site";
 ---
 
 <section
@@ -17,16 +13,16 @@ const { selectedService } = Astro.props;
       <span class="contact-symbol">
         <Icon name="message" />
       </span>
-      <p class="eyebrow">LET’S TALK ABOUT YOUR SPACE</p>
+      <p class="eyebrow">NEED HELP?</p>
       <h2 id="contact-title" class="type-section">
-        더 쾌적한 일상을,
+        어떤 도움이
         <br />
-        함께 시작해요.
+        필요하신가요?
       </h2>
       <p class="contact-description">
-        가정부터 기업·사무실까지.
+        서비스에 대해 궁금한 점,
         <br />
-        우리 공간에 필요한 케어를 살펴보세요.
+        편하게 문의해 주세요.
       </p>
       <div class="contact-signature">
         <span class="small-line"></span>
@@ -35,50 +31,46 @@ const { selectedService } = Astro.props;
     </div>
     <div class="contact-panel">
       <p class="eyebrow">CONTACT</p>
-      <h3 class="type-card">어떤 케어가 필요하신가요?</h3>
-      <p class="type-small contact-helper">관심 있는 서비스를 선택해 보세요.</p>
-      <div class="care-options" role="group" aria-label="관심 서비스 선택">
-        {services.map((service) => (
-          <button
-            type="button"
-            class="care-option"
-            data-service={service.title}
-            aria-pressed={selectedService === service.title ? "true" : "false"}
-          >
-            <Icon name={service.icon} />
-            <span>{service.navLabel}</span>
-          </button>
+      <a class="contact-phone" href={`tel:${contactChannels.phone.number}`}>
+        <span class="contact-phone-heading type-menu">
+          <Icon name="phone" />
+          전화 상담
+        </span>
+        <Icon name="diagonal" />
+        <strong class="contact-phone-number">
+          {contactChannels.phone.display}
+        </strong>
+      </a>
+      <p class="contact-platform-label type-small">
+        플랫폼에서도 문의하실 수 있어요.
+      </p>
+      <ul class="contact-platforms" role="list" aria-label="플랫폼 문의 채널">
+        {contactChannels.platforms.map((platform) => (
+          <li>
+            <a
+              class="contact-platform-link"
+              href={platform.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${platform.name}로 문의하기 (새 창)`}
+            >
+              <img
+                class="contact-platform-logo"
+                src={platform.logo}
+                width="200"
+                height="200"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="contact-platform-name">
+                {platform.name}
+                <Icon name="diagonal" />
+              </span>
+            </a>
+          </li>
         ))}
-      </div>
-      <p class="selection-feedback type-small" aria-live="polite">
-        {selectedService
-          ? `${selectedService}에 관심 있으시군요.`
-          : "궁금한 케어를 선택해 주세요."}
-      </p>
-      <div class="contact-pending">
-        <span class="status-dot"></span>
-        <span class="type-small">문의 채널 준비 중</span>
-      </div>
-      <p class="type-small pending-description">
-        연락처와 문의 방법을 준비하고 있습니다.
-        <br />
-        현재는 문의가 접수되지 않습니다.
-      </p>
+      </ul>
     </div>
   </div>
 </section>
-<script>
-  document.querySelectorAll<HTMLElement>(".contact-panel").forEach((panel) => {
-    const options = panel.querySelectorAll<HTMLButtonElement>(".care-option");
-    const feedback = panel.querySelector<HTMLElement>(".selection-feedback");
-    options.forEach((option) =>
-      option.addEventListener("click", () => {
-        options.forEach((button) =>
-          button.setAttribute("aria-pressed", String(button === option)),
-        );
-        if (feedback)
-          feedback.textContent = `${option.dataset.service}에 관심 있으시군요.`;
-      }),
-    );
-  });
-</script>

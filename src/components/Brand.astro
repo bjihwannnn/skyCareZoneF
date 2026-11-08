@@ -1,15 +1,4 @@
----
-interface Props {
-  compact?: boolean;
-}
-const { compact = false } = Astro.props;
----
-
-<a
-  class:list={["brand", { "brand--compact": compact }]}
-  href="/"
-  aria-label="SKY CARE ZONE 홈"
->
+<a class="brand" href="/" aria-label="SKY CARE ZONE 홈">
   <svg
     class="brand__symbol"
     width="42"
@@ -37,6 +26,6 @@ const { compact = false } = Astro.props;
   </svg>
   <span class="brand__wordmark">
     SKY CARE ZONE
-    <span class="brand__tagline">공간을 위한 케어, 일상을 위한 여유</span>
+    <span class="brand__tagline">전문적인 케어, 더 세심한 관리</span>
   </span>
 </a>

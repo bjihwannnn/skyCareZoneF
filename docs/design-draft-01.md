@@ -39,7 +39,7 @@ Hero → 별도 문의 CTA → 서비스 개요 → 문의 순서다. 회사 실
 | 파일 | 출처·용도 |
 | --- | --- |
 | `public/images/living-room.jpg` | Unsplash: https://images.unsplash.com/photo-1600210492486-724fe5c67fb0 — Hero 연출 이미지 |
-| `public/images/sofa.jpg` | Unsplash: https://images.unsplash.com/photo-1555041469-a586c61ea9bc — 공간·가구 연출 이미지 |
+| `public/images/sofa.jpg` | Unsplash: https://images.unsplash.com/photo-1555041469-a586c61ea9bc — 가구·패브릭 연출 이미지 |
 | `public/images/clean-space.jpg` | Unsplash: https://images.unsplash.com/photo-1584622650111-993a426fbf0a — 정돈된 실내 연출 이미지, 방역 사례가 아님 |
 | `public/images/air-conditioner.svg` | 이번 시안을 위해 코드로 제작한 에어컨 공간 일러스트 |
 | `public/fonts/SUIT-Variable.woff2` | SUIT Variable, 공식 프로젝트 https://github.com/sun-typeface/SUIT — SIL Open Font License 1.1, 라이선스 동봉 |

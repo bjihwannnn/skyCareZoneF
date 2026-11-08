@@ -20,11 +20,10 @@ interface CasePhoto {
 
 export interface ServiceDetails {
   metaDescription: string;
-  isPlaceholder: boolean;
   processSteps: readonly ProcessStep[];
   usageGuideItems: readonly UsageGuideItem[];
-  // Photos render in array order; an empty array keeps the existing placeholder.
-  casePhotos: readonly CasePhoto[];
+  // Every service has case photos, rendered in array order.
+  casePhotos: readonly [CasePhoto, ...CasePhoto[]];
 }
 
 // Keys stay in sync with the service IDs defined in site.ts.
@@ -32,7 +31,6 @@ export const serviceDetails: Record<Service["id"], ServiceDetails> = {
   "air-conditioner": {
     metaDescription:
       "SKY CARE ZONE의 에어컨 종합세척 절차와 서비스 이용 안내를 확인하세요.",
-    isPlaceholder: false,
     casePhotos: [
       {
         src: "/images/cases/air-conditioner/ac-0.jpg",
@@ -96,27 +94,26 @@ export const serviceDetails: Record<Service["id"], ServiceDetails> = {
       },
     ],
   },
-  "space-furniture": {
+  "furniture-fabric": {
     metaDescription:
-      "SKY CARE ZONE의 공간·가구 케어 작업 절차와 이용 안내를 확인하세요.",
-    isPlaceholder: false,
+      "SKY CARE ZONE의 가구·패브릭 케어 작업 절차와 이용 안내를 확인하세요.",
     casePhotos: [
       {
-        src: "/images/cases/space-furniture/sf-0.jpg",
+        src: "/images/cases/furniture-fabric/ff-0.jpg",
         width: 1058,
         height: 1411,
         alt: "세워 둔 가구의 갈색 하부 원단에 원형 노즐을 대고 작업하는 모습",
         caption: "가구 하부 클리닝 작업",
       },
       {
-        src: "/images/cases/space-furniture/sf-1.jpg",
+        src: "/images/cases/furniture-fabric/ff-1.jpg",
         width: 1411,
         height: 1058,
         alt: "호스가 연결된 세척 장비로 실내 카펫 바닥을 관리하는 작업 현장",
         caption: "카펫 클리닝 작업",
       },
       {
-        src: "/images/cases/space-furniture/sf-2.jpg",
+        src: "/images/cases/furniture-fabric/ff-2.jpg",
         width: 1058,
         height: 1411,
         alt: "무늬가 있는 밝은 패브릭 표면에 투명 노즐을 대고 작업하는 모습",
@@ -166,7 +163,6 @@ export const serviceDetails: Record<Service["id"], ServiceDetails> = {
   disinfection: {
     metaDescription:
       "SKY CARE ZONE의 방역 케어 작업 절차와 이용 안내를 확인하세요.",
-    isPlaceholder: false,
     casePhotos: [
       {
         src: "/images/cases/disinfection/d-0.jpg",
